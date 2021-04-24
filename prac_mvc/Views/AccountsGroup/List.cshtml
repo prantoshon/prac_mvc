@@ -1,0 +1,38 @@
+﻿@model IEnumerable<prac_mvc.dbContext.Acc_Head>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table class="table table-hover">
+    <tr><th>Account Code</th>
+        <th>Head Of Group</th>
+        <th>SL</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.Account_Code</td>
+            <td>@student.Account_Head</td>
+            <td>@student.Sl</td>
+            <td>@Html.ActionLink("Edit", 
+                 "Edit", 
+                 new { id = student.Account_Code },
+                 null // <-- htmlArguments
+                )  
+            </td>
+            <td>
+                @Html.ActionLink("Delete",
+                 "Delete",
+                 new { id = student.Account_Code },
+                 null // <-- htmlArguments
+                )
+        </td>
+
+
+        </tr>
+    }
+</table>

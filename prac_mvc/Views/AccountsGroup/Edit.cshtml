@@ -1,0 +1,34 @@
+﻿@model prac_mvc.dbContext.Acc_Head
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Update", "AccountsGroup", FormMethod.Post))
+{
+    <div class="container">
+        <div class="form-group">
+            @Html.HiddenFor(m => m.Account_Code)
+            <label>Head Of Group</label>
+         
+            @Html.TextBoxFor(x => x.Account_Head, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Group Name</label>
+            @Html.TextBoxFor(x => x.Sl, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <input id="Submit1" class="btn btn-primary" type="submit" value="submit" />
+        </div>
+        @{
+            if (TempData["message"] != null)
+            {
+                <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+                </script>
+            }
+        }
+    </div>
+            }
