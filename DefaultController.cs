@@ -60,13 +60,13 @@ namespace Bootstrap.Controllers
             return View("Ind");
 
         }
-        public ActionResult List( int? page)
+        public ActionResult List(int? page)
         {
             int pageSize = 3;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             DdContextDataContext _db = new DdContextDataContext();
-            return View(_db.UserInfos.ToList().ToPagedList(page??1,2));
+            return View(_db.UserInfos.ToList().ToPagedList(page ?? 1, 2));
         }
         public ActionResult Edit(int Id)
         {
@@ -84,6 +84,43 @@ namespace Bootstrap.Controllers
             //   List();
             return View("Ind");
 
+        }
+
+        private void QuestionDropDownlistLoad()
+        {
+            DdContextDataContext _db = new DdContextDataContext();
+            ViewBag.Question = new SelectList(_db.Questions, "QuestionID", "QuestionName");
+        }
+        public ActionResult Employee()
+        {
+            QuestionDropDownlistLoad();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddEmploye(employeeModel employee)
+        {
+            if (ModelState.IsValid)
+            {
+                DdContextDataContext _db = new DdContextDataContext();
+                Employee obj = new Employee();
+                obj.EmployeeName = employee.EmployeeName;
+                obj.EmailAddress = employee.EmailAddress;
+                obj.EmployeeCode = employee.EmployeeId + "1000";
+                obj.Username = employee.Username;
+                obj.Password = employee.Password;
+                obj.QuestionID = employee.QuestionID;
+                obj.Answer = employee.Answer;
+                obj.CreateDate = DateTime.Now;
+                obj.LastUpdatedBy= employee.EmployeeName;
+                obj.IsActive = employee.IsActive;
+                _db.Employees.InsertOnSubmit(obj);
+                _db.SubmitChanges();
+                ViewBag.msg = "System Msg: Saved";
+           
+         
+            }
+            QuestionDropDownlistLoad();
+            return View("Employee");
         }
     }
 }

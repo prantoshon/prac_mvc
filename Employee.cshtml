@@ -1,0 +1,102 @@
+﻿
+@model Bootstrap.Employee
+   
+
+@using (Html.BeginForm("AddEmploye", "Default", FormMethod.Post))
+{
+
+    <div class="container-fluid">
+        <h1 class="mt-4">Add User Details</h1>
+        <div class="row" style="border-bottom-width: 5px; border-bottom-style: groove;">
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Employee Name<span class="text-danger">*</span></label>
+                    <div class="col-sm-9 text-left">
+                        @Html.TextBoxFor(m => m.EmployeeName, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email Address <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Username <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Password <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Re-type Password <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Status </label>
+                    <div class="col-sm-9">
+                        @Html.CheckBox("IsActive")
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Password Verification Question:<span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.DropDownList("QuestionID", ViewBag.Question as SelectList, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.QuestionID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Answer: <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.Answer, new { @class = "form-control input-lg" })
+                        @Html.ValidationMessageFor(model => model.Answer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <label><span class="text-success">@ViewBag.msg</span></label>
+                        <label><span class="text-danger">@ViewBag.msg1</span></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+
+                        <input type="submit" value="Save" id="Submit" class="btn btn-success mb-5" />
+                        <input type="button" value="Cancel" id="btnCancel" class="btn btn-info mb-5" onclick="@("window.location.href='" + @Url.Action("Redirct", "Default") + "'");" />
+
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
